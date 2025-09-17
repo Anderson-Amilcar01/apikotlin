@@ -20,26 +20,16 @@ public class TareaService {
         return repository.save(tarea);
     }
 
-    public Optional<Tarea> update(Integer id, Tarea tarea) {
-        return repository.findById(id).map(t -> {
-            t.setTitulo(tarea.getTitulo());
-            t.setDescripcion(tarea.getDescripcion());
-            t.setFechaEntrega(tarea.getFechaEntrega());
-            t.setPrioridad(tarea.getPrioridad());
-            t.setDocente(tarea.getDocente());
-            return repository.save(t);
-        });
+    public Tarea update(Tarea tarea) {
+        return repository.save(tarea);
     }
 
     public List<Tarea> getAll() {
         return repository.findAll();
     }
 
-    public Optional<Tarea> getById(Integer id) {
-        return repository.findById(id);
-    }
-
-    public void delete(Integer id) {
-        repository.deleteById(id);
+    public Tarea getById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tarea no encontrada"));
     }
 }

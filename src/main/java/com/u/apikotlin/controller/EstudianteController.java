@@ -1,5 +1,8 @@
 package com.u.apikotlin.controller;
 
+import com.u.apikotlin.dto.request.EstudianteRequestDTO;
+import com.u.apikotlin.dto.response.EstudianteResponseDTO;
+import com.u.apikotlin.mapper.EstudianteMapper;
 import com.u.apikotlin.model.Estudiante;
 import com.u.apikotlin.service.EstudianteService;
 import org.springframework.web.bind.annotation.*;
@@ -11,33 +14,36 @@ import java.util.List;
 public class EstudianteController {
 
     private final EstudianteService service;
+    private final EstudianteMapper mapper;
 
-    public EstudianteController(EstudianteService service) {
+    public EstudianteController(EstudianteService service, EstudianteMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @PostMapping
-    public Estudiante insert(@RequestBody Estudiante estudiante) {
-        return service.insert(estudiante);
+    public EstudianteResponseDTO insert(@RequestBody EstudianteRequestDTO dto) {
+        Estudiante estudiante = mapper.toEntity(dto);
+        Estudiante saved = service.insert(estudiante);
+        return mapper.toResponse(saved);
     }
 
     @PutMapping("/{id}")
-    public Estudiante update(@PathVariable Integer id, @RequestBody Estudiante estudiante) {
-        return service.update(id, estudiante).orElseThrow();
+    public EstudianteResponseDTO update(@PathVariable Integer id,
+                                        @RequestBody EstudianteRequestDTO dto) {
+        Estudiante estudiante = mapper.toEntity(dto);
+        estudiante.setId(id);
+        Estudiante updated = service.update(estudiante);
+        return mapper.toResponse(updated);
     }
 
     @GetMapping
-    public List<Estudiante> getAll() {
-        return service.getAll();
+    public List<EstudianteResponseDTO> getAll() {
+        return mapper.toResponseList(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public Estudiante getById(@PathVariable Integer id) {
-        return service.getById(id).orElseThrow();
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public EstudianteResponseDTO getById(@PathVariable Integer id) {
+        return mapper.toResponse(service.getById(id));
     }
 }

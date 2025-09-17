@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class EstudianteTareaService {
 
@@ -17,26 +18,20 @@ public class EstudianteTareaService {
         this.repository = repository;
     }
 
-    public EstudianteTarea insert(EstudianteTarea estudianteTarea) {
-        return repository.save(estudianteTarea);
+    public EstudianteTarea insert(EstudianteTarea entity) {
+        return repository.save(entity);
     }
 
-    // Actualizar estado de la tarea
-    public Optional<EstudianteTarea> updateEstado(Integer id, Estado estado) {
-        return repository.findById(id).map(et -> {
-            et.setEstado(estado);
-            if (estado == Estado.Completada) {
-                et.setFechaCompletada(new Date());
-            }
-            return repository.save(et);
-        });
+    public EstudianteTarea update(EstudianteTarea entity) {
+        return repository.save(entity);
     }
 
-    public List<EstudianteTarea> getPendientesByEstudiante(Integer estudianteId) {
-        return repository.findByEstudianteIdAndEstado(estudianteId, Estado.Pendiente);
+    public List<EstudianteTarea> getAll() {
+        return repository.findAll();
     }
 
-    public List<EstudianteTarea> getCompletadasByEstudiante(Integer estudianteId) {
-        return repository.findByEstudianteIdAndEstado(estudianteId, Estado.Completada);
+    public EstudianteTarea getById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Registro no encontrado"));
     }
 }

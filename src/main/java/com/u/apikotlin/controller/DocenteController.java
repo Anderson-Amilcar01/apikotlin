@@ -3,6 +3,10 @@ package com.u.apikotlin.controller;
 import com.u.apikotlin.model.Docente;
 import com.u.apikotlin.service.DocenteService;
 import org.springframework.web.bind.annotation.*;
+import com.u.apikotlin.dto.request.DocenteRequestDTO;
+import com.u.apikotlin.dto.response.DocenteResponseDTO;
+import com.u.apikotlin.mapper.DocenteMapper;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,34 +15,35 @@ import java.util.List;
 public class DocenteController {
 
     private final DocenteService service;
+    private final DocenteMapper mapper;
 
-    public DocenteController(DocenteService service) {
+    public DocenteController(DocenteService service, DocenteMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @PostMapping
-    public Docente insert(@RequestBody Docente docente) {
-        return service.insert(docente);
+    public DocenteResponseDTO insert(@RequestBody DocenteRequestDTO dto) {
+        Docente docente = mapper.toEntity(dto);
+        return mapper.toResponse(service.insert(docente));
     }
 
     @PutMapping("/{id}")
-    public Docente update(@PathVariable Integer id, @RequestBody Docente docente) {
-        return service.update(id, docente).orElseThrow();
+    public DocenteResponseDTO update(@PathVariable Integer id,
+                                     @RequestBody DocenteRequestDTO dto) {
+        Docente docente = mapper.toEntity(dto);
+        docente.setId(id);
+        return mapper.toResponse(service.update(docente));
     }
 
     @GetMapping
-    public List<Docente> getAll() {
-        return service.getAll();
+    public List<DocenteResponseDTO> getAll() {
+        return mapper.toResponseList(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public Docente getById(@PathVariable Integer id) {
-        return service.getById(id).orElseThrow();
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public DocenteResponseDTO getById(@PathVariable Integer id) {
+        return mapper.toResponse(service.getById(id));
     }
 }
 

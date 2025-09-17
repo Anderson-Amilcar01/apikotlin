@@ -4,7 +4,6 @@ import com.u.apikotlin.repository.DocenteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DocenteService {
@@ -19,22 +18,16 @@ public class DocenteService {
         return repository.save(docente);
     }
 
-    public Optional<Docente> update(Integer id, Docente docente) {
-        return repository.findById(id).map(d -> {
-            d.setNombre(docente.getNombre());
-            return repository.save(d);
-        });
+    public Docente update(Docente docente) {
+        return repository.save(docente);
     }
 
     public List<Docente> getAll() {
         return repository.findAll();
     }
 
-    public Optional<Docente> getById(Integer id) {
-        return repository.findById(id);
-    }
-
-    public void delete(Integer id) {
-        repository.deleteById(id);
+    public Docente getById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Docente no encontrado"));
     }
 }
