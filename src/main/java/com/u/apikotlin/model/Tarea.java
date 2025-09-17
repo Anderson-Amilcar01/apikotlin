@@ -38,4 +38,26 @@ public class Tarea {
     public enum Prioridad {
         Baja, Media, Alta
     }
+    public Tarea() {
+    }
+    public Tarea(Integer id) {
+        this.id = id;
+    }
+    public Tarea(String titulo, String descripcion, Date fechaEntrega, Prioridad prioridad, Docente docente, List<EstudianteTarea> estudiantesAsignados) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fechaEntrega = fechaEntrega;
+        this.prioridad = prioridad;
+        this.docente = docente;
+        this.estudiantesAsignados = estudiantesAsignados;
+    }
+    public Tarea(Integer id, String titulo, String descripcion, Date fechaEntrega, Prioridad prioridad, Docente docente, List<EstudianteTarea> estudiantesAsignados) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fechaEntrega = fechaEntrega;
+        this.prioridad = prioridad;
+        this.docente = docente;
+        this.estudiantesAsignados = estudiantesAsignados;
+    }
 }

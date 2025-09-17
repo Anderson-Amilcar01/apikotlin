@@ -21,4 +21,20 @@ public class Docente {
 
     @OneToMany(mappedBy = "docente")
     private List<Tarea> tareas;
+
+    public Docente() {
+    }
+
+    public Docente(Integer id) {
+        this.id = id;
+    }
+    public Docente(String nombre, List<Tarea> tareas) {
+        this.nombre = nombre;
+        this.tareas = tareas;
+    }
+    public Docente(Integer id, String nombre, List<Tarea> tareas) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tareas = tareas;
+    }
 }

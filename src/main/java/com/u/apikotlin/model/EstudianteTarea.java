@@ -34,6 +34,27 @@ public class EstudianteTarea {
     public enum Estado {
         Pendiente, Completada
     }
-
+    //inicio constructores
+    public EstudianteTarea() {
+    }
+    //buscar por id
+    public EstudianteTarea(Integer id) {
+        this.id = id;
+    }
+    //crear nueva
+    public EstudianteTarea(Estudiante estudiante, Tarea tarea, Estado estado, Date fechaCompletada) {
+        this.estudiante = estudiante;
+        this.tarea = tarea;
+        this.estado = estado;
+        this.fechaCompletada = fechaCompletada;
+    }
+    //actualizar
+    public EstudianteTarea(Integer id, Estudiante estudiante, Tarea tarea, Estado estado, Date fechaCompletada) {
+        this.id = id;
+        this.estudiante = estudiante;
+        this.tarea = tarea;
+        this.estado = estado;
+        this.fechaCompletada = fechaCompletada;
+    }
 }
 
