@@ -45,5 +45,9 @@ public class DocenteController {
     public DocenteResponseDTO getById(@PathVariable Integer id) {
         return mapper.toResponse(service.getById(id));
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        service.delete(id);
+    }
 }
 

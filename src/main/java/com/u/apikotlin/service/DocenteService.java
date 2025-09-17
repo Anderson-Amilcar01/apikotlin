@@ -14,6 +14,13 @@ public class DocenteService {
         this.repository = repository;
     }
 
+    public Docente delete(Integer id) {
+        Docente docente = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Docente no encontrado"));
+        repository.delete(docente);
+        return docente;
+    }
+
     public Docente insert(Docente docente) {
         return repository.save(docente);
     }
