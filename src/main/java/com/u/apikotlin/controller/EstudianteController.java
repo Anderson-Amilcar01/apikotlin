@@ -2,9 +2,12 @@ package com.u.apikotlin.controller;
 
 import com.u.apikotlin.dto.request.EstudianteRequestDTO;
 import com.u.apikotlin.dto.response.EstudianteResponseDTO;
+import com.u.apikotlin.dto.response.EstudianteTareaResponseDTO;
 import com.u.apikotlin.mapper.EstudianteMapper;
 import com.u.apikotlin.model.Estudiante;
 import com.u.apikotlin.service.EstudianteService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,5 +48,11 @@ public class EstudianteController {
     @GetMapping("/{id}")
     public EstudianteResponseDTO getById(@PathVariable Integer id) {
         return mapper.toResponse(service.getById(id));
+    }
+
+    @GetMapping("/{id}/tareas/pendientes")
+    public ResponseEntity<List<EstudianteTareaResponseDTO>> getTareasPendientes(@PathVariable Integer id) {
+        List<EstudianteTareaResponseDTO> pendientes = service.getTareasPendientes(id);
+        return ResponseEntity.ok(pendientes);
     }
 }

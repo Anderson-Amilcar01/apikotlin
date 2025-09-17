@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface EstudianteTareaRepository extends JpaRepository<EstudianteTarea, Integer> {
     List<EstudianteTarea> findByEstudianteIdAndEstado(Integer estudianteId, Estado estado);
+
 }

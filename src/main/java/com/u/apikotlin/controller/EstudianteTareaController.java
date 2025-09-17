@@ -52,4 +52,5 @@ public class EstudianteTareaController {
         entity.setFechaCompletada(new java.util.Date());
         return mapper.toResponse(service.update(entity));
     }
+
 }
