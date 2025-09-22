@@ -47,4 +47,11 @@ public class EstudianteService {
                 .map(estudianteTareaMapper::toResponse)
                 .toList();
     }
+    // Eliminar estudiante por ID
+    public void delete(Integer id) {
+        Estudiante estudiante = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+        repository.delete(estudiante);
+    }
+
 }

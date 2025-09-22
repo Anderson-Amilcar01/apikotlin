@@ -39,6 +39,8 @@ public class EstudianteController {
         Estudiante updated = service.update(estudiante);
         return mapper.toResponse(updated);
     }
+    @DeleteMapping("/{id}")
+    
 
     @GetMapping
     public List<EstudianteResponseDTO> getAll() {
@@ -55,4 +57,10 @@ public class EstudianteController {
         List<EstudianteTareaResponseDTO> pendientes = service.getTareasPendientes(id);
         return ResponseEntity.ok(pendientes);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build(); // 204 sin contenido
+    }
+
 }
