@@ -39,8 +39,6 @@ public class EstudianteController {
         Estudiante updated = service.update(estudiante);
         return mapper.toResponse(updated);
     }
-    @DeleteMapping("/{id}")
-    
 
     @GetMapping
     public List<EstudianteResponseDTO> getAll() {
